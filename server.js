@@ -38,7 +38,11 @@ var server = http.createServer( function (req, res) {
   }
 
 })
-  
+
+
+server.listen(process.env.PORT || port)
+console.log('listening on 8080')
+
 function writeMovies(req, res, movies) {
   // read movies file
   
