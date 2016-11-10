@@ -69,11 +69,6 @@ function writeMovies(req, res, movies) {
     }
     d = ''
   })
- var movies = 
-    fs.readFileSync('movies.txt', 'utf8')
-      .toString()
-      .trim()
-      .split("\n");
   res.writeHead(200, {"Content-Type": "text/html"});
 
   res.write("<html>");
