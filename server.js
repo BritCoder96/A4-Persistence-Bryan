@@ -68,37 +68,9 @@ function writeMovies(req, res, movies) {
       }
     }
     d = ''
+    res.writeHead(200, {"Content-Type": "text/html"});
+    res.end( buildPage(movies) );
   })
-  res.writeHead(200, {"Content-Type": "text/html"});
-
-  res.write("<html>");
-  res.write("<head>");
-  res.write('<link rel="stylesheet" type="text/css" href="css/style.css"/>');
-  res.write('<link href="https://fonts.googleapis.com/css?family=Itim" rel="stylesheet">');
-  res.write('<script src="https://use.fontawesome.com/53f66de2be.js"></script>');
-  res.write('</head>');
-  res.write("<body>");
-
-  res.write("<h2>My current movies are:</h2>");
-  movies.forEach(function(d) {
-    res.write("<p>" + d + "</p>");
-  });
-
-  res.write("<form method=\"post\">");
-  res.write("<label for=\"newmovie\" > Add New Movie</label>");
-  res.write("<input id=\"newmovie\" name=\"newmovie\" type=\"text\">");
-  res.write("<label for=\"deletemovie\" > Remove a Movie</label>");
-  res.write("<input id=\"deletemovie\" name=\"deletemovie\" type=\"text\">");
-  res.write("<button id='file_submit' type=\"submit\">Submit</button>")
-  res.write("<br>")
-  res.write("<br>")
-  res.write("<a href='/search'>Click Here to Search Movies!</a>")
-  res.write("</form>");
-
-
-  res.write("</body>");
-  res.write("</html>");
-  res.end();
 }; 
 server.listen(8088);
 console.log("Server is listening on 8088");
@@ -122,6 +94,40 @@ function handleSearch(res, uri, movies) {
   } else {
     res.end( createHTML(movies) )
   }
+}
+
+function buildPage(movies) {
+  html = ' ' 
+  html = html + '<html>'
+
+  html = html + '<head>'
+  html = html + '<link rel="stylesheet" type="text/css" href="css/style.css"/>'
+  html = html + '<link href="https://fonts.googleapis.com/css?family=Itim" rel="stylesheet">'
+  html = html + '<script src="https://use.fontawesome.com/53f66de2be.js"></script>'
+  html = html + '</head>'
+
+  html = html + '<body>'
+
+  html = html + "<h2>My current movies are:</h2>"
+  movies.forEach(function(d) {
+    html = html + "<p>" + d + "</p>"
+  });
+
+  html = html + "<form method=\"post\">"
+  html = html + "<label for=\"newmovie\" > Add New Movie</label>"
+  html = html + "<input id=\"newmovie\" name=\"newmovie\" type=\"text\">"
+  html = html + "<label for=\"deletemovie\" > Remove a Movie</label>"
+  html = html + "<input id=\"deletemovie\" name=\"deletemovie\" type=\"text\">"
+  html = html + "<button id='file_submit' type=\"submit\">Submit</button>"
+  html = html + "<br>"
+  html = html + "<br>"
+  html = html + "<a href='/search'>Click Here to Search Movies!</a>"
+  html = html + "</form>"
+
+
+  html = html + "</body>"
+  html = html + "</html>"
+  return html
 }
 
 function sendIndex(res) {
