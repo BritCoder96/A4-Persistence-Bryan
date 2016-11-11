@@ -57,12 +57,14 @@ function writeMovies(req, res, movies) {
       var q = qs.parse(d)
       if(q.newmovie) {
         movies.push( q.newmovie )
+        movies.sort()
         fs.writeFileSync('movies.txt', movies.join('\n'))
       }
       if(q.deletemovie) {
         i = movies.indexOf( q.deletemovie )
         if (i > -1) {
           movies.splice(i, 1)
+          movies.sort()
           fs.writeFileSync('movies.txt', movies.join('\n'))
         }
       }
